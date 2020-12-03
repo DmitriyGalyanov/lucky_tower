@@ -1,114 +1,125 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+// import React, {useState, useEffect} from 'react';
+
+// import store from './src/redux/store';
+// import {Provider} from 'react-redux';
+
+// import {Game, WebViewScreen} from './src/screens';
+
+// import remoteConfig from '@react-native-firebase/remote-config';
+
+// import {IDFA} from 'react-native-idfa';
+
+// import appsFlyer from 'react-native-appsflyer';
+
+// import {
+// 	appsflyerDevKey,
+// 	bundleName,
+// } from './src/constants';
+
+
+// const App = () => {
+// 	//get appsflyer unique device id
+// 	const [appsflyer_id, setAppsflyer_id] = useState('');
+
+// 	useEffect(() => {
+// 		appsFlyer.getAppsFlyerUID((err, appsflyerUID) => {
+// 			if (err) {
+// 				console.error(err);
+// 			} else {
+// 				// console.log('on getAppsFlyerUID: ' + appsflyerUID);
+// 				setAppsflyer_id(appsflyerUID);
+// 			}
+// 		});
+// 	}, []);
+
+// 	//gather remote config value(s) and set appropriate local (state) values
+// 	const [depend_on, setDepend_on] = useState('game');
+// 	const [remoteConfigUrl, setRemoteConfigUrl] = useState('');
+
+// 	useEffect(() => {
+// 		remoteConfig()
+// 		.setDefaults({
+// 			'depend_on': 'game', //'game' || 'remote_config'
+// 			'url': '',
+// 		})
+// 		.then(() => {
+// 			return remoteConfig().setConfigSettings({
+// 				minimumFetchIntervalMillis: 10000,
+// 			})
+// 		})
+// 		.then(() => remoteConfig().fetchAndActivate())
+// 		.then(fetchedRemotely => {
+// 			setDepend_on(remoteConfig().getValue('depend_on').asString());
+// 			setRemoteConfigUrl(remoteConfig().getValue('url').asString());
+// 			// if (fetchedRemotely) {
+// 			// 	console.log('Configs were retrieved from the backend and activated. \n');
+// 			// } else {
+// 			// 	console.log(
+// 			// 		'No configs were fetched from the backend, and the local configs were already activated \n',
+// 			// 	);
+// 			// }
+// 		})
+// 		.catch(er => console.error(er));
+// 	}, []);
+
+// 	//get google advertising id and set local (state) advertising_id value
+// 	const [advertising_id, setAdvertising_id] = useState('');
+
+// 	useEffect(() => {
+// 		IDFA.getIDFA().then(idfa => {
+// 			setAdvertising_id(idfa);
+// 		})
+// 		.catch(er => console.error(er));
+// 	}, []);
+
+// 	//set remote config dependent final URL
+// 	const [remoteConfigFinalUrl, setRemoteConfigFinalUrl] = useState('');
+
+// 	useEffect(() => {
+// 		if (remoteConfigUrl && bundleName && appsflyerDevKey && advertising_id) {
+// 			setRemoteConfigFinalUrl(`${remoteConfigUrl}?app_id=${bundleName}&authentication=${appsflyerDevKey}&appsflyer_id=${appsflyer_id}&advertising_id=${advertising_id}`);
+// 		};
+// 	}, [remoteConfigUrl, bundleName, appsflyerDevKey, appsflyer_id, advertising_id]);
+
+// 	//set render component
+// 	const [shouldRenderWebView, setShouldRenderWebView] = useState(false);
+
+// 	useEffect(() => {
+// 		// console.log('Depend on:', depend_on, 'URL:', remoteConfigUrl)
+// 		if (depend_on === 'remote_config'
+// 			&& remoteConfigUrl && bundleName && appsflyerDevKey && advertising_id) {
+// 			setShouldRenderWebView(true);
+// 		}
+// 	}, [remoteConfigFinalUrl, depend_on]);
+
+
+// 	return (
+// 		<Provider store={store}>
+// 			{depend_on === 'game' && (
+// 				<Game />
+// 			)}
+// 			{shouldRenderWebView && (
+// 				<WebViewScreen url={remoteConfigFinalUrl} />
+// 			)}
+// 		</Provider>
+// 	);
+// };
+
+// export default App;
 
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import store from './src/redux/store';
+import {Provider} from 'react-redux';
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
+import {Game} from './src/screens';
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
+const App = () => {
+	return (
+		<Provider store={store}>
+			<Game />
+		</Provider>
+	)
+}
 
 export default App;
