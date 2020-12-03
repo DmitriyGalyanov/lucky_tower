@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import {TouchableOpacity, View, Image} from 'react-native';
 
-import {useDispatch} from 'react-redux';
-import {increaseLuckyHits} from '../redux/stateSlices';
+import {useSelector, useDispatch} from 'react-redux';
+import {selectGameData, increaseLuckyHits} from '../redux/stateSlices';
 
 import {playTileBGColor} from '../constants';
 import images from 'images';
@@ -25,8 +25,7 @@ PlayTile.propTypes = {
 export default function PlayTile({rowNumber, width, height, hides, triggerFail}) {
 	const dispatch = useDispatch();
 
-	const [showHiddenImage, setShowHiddenImage] = useState(true);
-	//will depend on init image Animated value
+	const [showHiddenImage, setShowHiddenImage] = useState(false);
 	const hiddenImage = hides === 'prize'
 		? images.prizeItem
 		: images.lossItem;
@@ -41,10 +40,14 @@ export default function PlayTile({rowNumber, width, height, hides, triggerFail})
 		}
 	};
 
+	const {luckyHits} = useSelector(selectGameData);
+
+	const isDisabled = showHiddenImage || rowNumber !== luckyHits;
+
 	return (
 		<TouchableOpacity
 			onPress={handlePress}
-			// disabled={showHiddenImage}
+			disabled={isDisabled}
 		>
 			<View
 				style={{
