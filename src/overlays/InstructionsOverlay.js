@@ -32,19 +32,23 @@ export default function InstructionsOverlay({start}) {
 				justifyContent: 'center',
 				alignItems: 'center',
 				paddingBottom: 180,
+				paddingHorizontal: 8,
 			}}
 		>
 			<Text style={styles.text}>
 				За квадратами скрываются мины и монеты
 			</Text>
 			<Text style={styles.text}>
-				Для победы нужно найти {neededLuckyHitsAmount} монеты подряд
+				Каждая открытая монета увеличивает множитель
+			</Text>
+			<Text style={styles.text}>
+				Забрать приз можно в любой момент (после открытия хотя бы одной монеты)
 			</Text>
 			<Text style={[styles.text, {marginBottom: 34}]}>
 				При открытии мины ставка сгорает
 			</Text>
 			<HidingButton
-				title='Start!'
+				title='Играть'
 				onPress={start}
 			/>
 		</View>

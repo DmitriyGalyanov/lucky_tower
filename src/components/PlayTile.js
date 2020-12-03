@@ -31,7 +31,6 @@ export default function PlayTile({rowNumber, width, height, hides, triggerFail})
 		: images.lossItem;
 
 	const handlePress = () => {
-		console.log(rowNumber)
 		setShowHiddenImage(true);
 		if (hides === 'prize') {
 			dispatch(increaseLuckyHits());
