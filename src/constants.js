@@ -12,12 +12,15 @@ export const initialBalance = 10000;
 export const sadBalance = 1000;
 export const initialBet = 200;
 
+export const multipliersArray = [
+	1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3,
+];
+
 //field
 export const playFieldWidth = windowWidth * 0.5;
 
 export const playTilesInRowAmount = 3;
-export const playRowsAmount = 8;
-export const playTilesAmount = playTilesInRowAmount * playRowsAmount;
+export const playRowsAmount = multipliersArray.length;
 export const playTileWidth = playFieldWidth / playTilesInRowAmount;
 export const playTileHeight = playTileWidth;
 export const playTileBGColor = 'rgba(0, 0, 0, 0.4)';
@@ -25,8 +28,6 @@ export const playTileBGColor = 'rgba(0, 0, 0, 0.4)';
 export const playFieldHeight = playTileHeight * playRowsAmount;
 
 //
-export const winningItemProbability = 25;
-export const maxLossItemsAmount = 6;
 export const neededLuckyHitsAmount = 3;
 
 //controls

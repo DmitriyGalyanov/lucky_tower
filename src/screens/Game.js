@@ -29,11 +29,12 @@ import {
 
 import {background} from 'images';
 import {
+	windowHeight,
+	windowWidth,
 	gameScreenPadding,
 	mainTextColor,
 	mainTextFontSize,
-	windowHeight,
-	windowWidth,
+	multipliersArray,
 } from '../constants';
 
 
@@ -76,6 +77,8 @@ export default function Game() {
 		dispatch(resetBet());
 		createField();
 	};
+
+	const multiplier = multipliersArray[luckyHits];
 
 	useEffect(() => {
 		if (bet === 0) {
@@ -130,6 +133,14 @@ export default function Game() {
 					contentContainerStyle={styles.wrap}
 				>
 					<View style={styles.balanceInterface}>
+						{balance > 1000 && (
+							<View style={styles.showInstructionsButtonWrap}>
+								<HidingButton
+									title='Инструкция'
+									onPress={() => setRunning(false)}
+								/>
+							</View>
+						)}
 						{balance < 1000 && (
 							<View style={styles.resetBalanceButtonWrap}>
 								<HidingButton
@@ -139,17 +150,14 @@ export default function Game() {
 								/>
 							</View>
 						)}
-						{balance > 1000 && (
-							<View style={styles.showInstructionsButtonWrap}>
-								<HidingButton
-									title='Инструкция'
-									onPress={() => setRunning(false)}
-								/>
-							</View>
-						)}
-						<Text style={styles.balanceText}>
-							Баланс: {balance}
-						</Text>
+						<View style={styles.multiplierAndBalanceIndicatorsWrap}>
+							<Text style={styles.balanceIndicator}>
+								Баланс: {balance}
+							</Text>
+							<Text style={styles.multiplierIndicator} >
+								Множ: {multiplier}
+							</Text>
+						</View>
 					</View>
 					<View style={styles.playZone}>
 						<PlayField key={playFieldIndex}
@@ -188,21 +196,32 @@ const styles = StyleSheet.create({
 		marginBottom: 14,
 	},
 
+	showInstructionsButtonWrap: {
+		width: (windowWidth - gameScreenPadding * 2) / 2 - 20,
+		alignSelf: 'center',
+	},
+
 	resetBalanceButtonWrap: {
 		width: (windowWidth - gameScreenPadding * 2) / 2 - 20,
+		alignSelf: 'center',
 		//20 = desired gap between balance reset button and balance indicator
 	},
 
-	balanceText: {
+	multiplierAndBalanceIndicatorsWrap: {
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+
+	balanceIndicator: {
 		color: mainTextColor,
 		fontSize: mainTextFontSize,
 		alignSelf: 'center',
 	},
 
-	showInstructionsButtonWrap: {
-		width: (windowWidth - gameScreenPadding * 2) / 2 - 20,
-		alignSelf: 'flex-end',
-		
+	multiplierIndicator: {
+		color: mainTextColor,
+		fontSize: mainTextFontSize,
+		alignSelf: 'center',
 	},
 
 	playZone: {
