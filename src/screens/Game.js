@@ -6,6 +6,7 @@ import {
 	Text,
 	View,
 	Alert,
+	ScrollView,
 } from 'react-native';
 import {InstructionsOverlay} from '../overlays';
 import {
@@ -31,6 +32,7 @@ import {
 	gameScreenPadding,
 	mainTextColor,
 	mainTextFontSize,
+	windowHeight,
 	windowWidth,
 } from '../constants';
 
@@ -116,7 +118,7 @@ export default function Game() {
 	return (
 		<ImageBackground
 			source={background}
-			style={styles.wrap}
+			style={styles.background}
 		>
 			{!running && (
 				<InstructionsOverlay
@@ -124,24 +126,30 @@ export default function Game() {
 				/>
 			)}
 			{running && (
-				<>
+				<ScrollView
+					contentContainerStyle={styles.wrap}
+				>
 					<View style={styles.balanceInterface}>
-						<View style={styles.resetBalanceButtonWrap}>
-							<HidingButton
-								title='Обновить баланс'
-								onPress={() => dispatch(resetBalance())}
-								isHidden={balance > 1000}
-							/>
-						</View>
+						{balance < 1000 && (
+							<View style={styles.resetBalanceButtonWrap}>
+								<HidingButton
+									title='Обновить баланс'
+									onPress={() => dispatch(resetBalance())}
+									isHidden={balance > 1000}
+								/>
+							</View>
+						)}
+						{balance > 1000 && (
+							<View style={styles.showInstructionsButtonWrap}>
+								<HidingButton
+									title='Инструкция'
+									onPress={() => setRunning(false)}
+								/>
+							</View>
+						)}
 						<Text style={styles.balanceText}>
 							Баланс: {balance}
 						</Text>
-					</View>
-					<View style={styles.showInstructionsButtonWrap}>
-						<HidingButton
-							title='Инструкция'
-							onPress={() => setRunning(false)}
-						/>
 					</View>
 					<View style={styles.playZone}>
 						<PlayField key={playFieldIndex}
@@ -158,22 +166,26 @@ export default function Game() {
 							<PlayButton onPress={createField} />
 						</View>
 					</View>
-				</>
+				</ScrollView>
 			)}
 		</ImageBackground>
 	)
 }
 
 const styles = StyleSheet.create({
-	wrap: {
+	background: {
 		flex: 1,
+	},
+
+	wrap: {
+		minHeight: windowHeight * 0.98,
 		padding: gameScreenPadding,
-		justifyContent: 'space-between',
 	},
 
 	balanceInterface: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
+		marginBottom: 14,
 	},
 
 	resetBalanceButtonWrap: {
@@ -194,7 +206,8 @@ const styles = StyleSheet.create({
 	},
 
 	playZone: {
-		alignSelf: 'center'
+		alignSelf: 'center',
+		alignItems: 'center',
 	},
 
 	betIndicatorWrap: {

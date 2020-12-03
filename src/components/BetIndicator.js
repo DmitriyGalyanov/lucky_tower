@@ -25,10 +25,7 @@ export default function BetIndicator({bet}) {
 	return (
 		<View style={styles.wrap}>
 			<Text style={styles.text}>
-				Сумма ставки:
-			</Text>
-			<Text style={styles.text}>
-				{bet.toFixed(1)}
+				Ставка: {bet.toFixed(1)}
 			</Text>
 		</View>
 	)
