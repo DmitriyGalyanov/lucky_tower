@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1006819849160",
+    "project_id": "lucky-tower-d9868",
+    "storage_bucket": "lucky-tower-d9868.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006819849160:android:dbbd7c9b7cee00c18ec6fd",
+        "android_client_info": {
+          "package_name": "com.lucky_tower"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006819849160-u0me1997m30evhroe86qi0on7g1k933c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6RNypByvCNG2BgWow4ay8pprqpiEEXeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006819849160-u0me1997m30evhroe86qi0on7g1k933c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
