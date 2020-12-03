@@ -55,17 +55,23 @@ export default function Game() {
 		createField();
 	}, []);
 
-	const triggerFail = () => {
+	const handleFail = () => {
 		dispatch(resetLuckyHits());
 		dispatch(changeBalance(-bet));
-		if (balance === bet) return;
+		createField();
+	};
+	const triggerFail = () => {
+		if (balance === bet) {
+			handleZeroBalance();
+			return;
+		};
 		Alert.alert(
 			'Не повезло',
 			'',
 			[
 				{
 					text: 'Продолжить',
-					onPress: () => createField(),
+					onPress: () => handleFail(),
 				},
 			],
 			{ cancelable: false }
@@ -78,35 +84,47 @@ export default function Game() {
 		createField();
 	};
 
-	const multiplier = multipliersArray[luckyHits];
-
+	const handleZeroBalance = () => {
+		Alert.alert(
+			'Баланс на нуле',
+			'',
+			[
+				{
+					text: 'Обновить баланс',
+					onPress: () => restart(),
+				},
+			],
+			{ cancelable: false }
+		);
+	};
 	useEffect(() => {
-		if (bet === 0) {
-			Alert.alert(
-				'Баланс на нуле',
-				'',
-				[
-					{
-						text: 'Обновить баланс',
-						onPress: () => restart(),
-					},
-				],
-				{ cancelable: false }
-			);
-		}
+		if (bet === 0) handleZeroBalance();
 	}, [bet]);
 
-	const checkIfWin = () => {
-		if (luckyHits === 3) {
-			dispatch(changeBalance(bet));
+	const multiplier = multipliersArray[luckyHits];
+
+	const handleActionButtonPress = () => {
+		if (luckyHits) {
+			dispatch(changeBalance(bet * multiplier));
 			dispatch(resetLuckyHits());
+		}
+		createField();
+	};
+
+	const handleWin = () => {
+		dispatch(changeBalance(bet * multiplier));
+		dispatch(resetLuckyHits());
+		createField();
+	};
+	const checkIfWin = () => {
+		if (luckyHits === multipliersArray.length - 1) {
 			Alert.alert(
-				'Повезло',
-				`Выигрыш: ${bet}`,
+				'Вы дошли до вершины!',
+				`Выигрыш: ${bet * multiplier}`,
 				[
 					{
 						text: 'Продолжить',
-						onPress: () => createField(),
+						onPress: () => handleWin(),
 					},
 				],
 				{ cancelable: false }
@@ -117,15 +135,7 @@ export default function Game() {
 		checkIfWin();
 	}, [luckyHits]);
 
-	const handleActionButtonPress = () => {
-		if (!luckyHits) {
-			createField();
-		} else {
-			console.log(bet * multiplier)
-		}
-	}
-
-
+	
 	return (
 		<ImageBackground
 			source={background}
@@ -162,7 +172,7 @@ export default function Game() {
 							<Text style={styles.balanceIndicator}>
 								Баланс: {balance}
 							</Text>
-							<Text style={styles.multiplierIndicator} >
+							<Text style={styles.multiplierIndicator}>
 								Множ.: {multiplier}
 							</Text>
 						</View>
@@ -176,7 +186,7 @@ export default function Game() {
 							<BetIndicator bet={bet} />
 						</View>
 						<View style={styles.betButtonRowWrap}>
-							<BetButtonsRow />
+							<BetButtonsRow disabled={luckyHits ? true : false} />
 						</View>
 							<View style={styles.actionButtonWrap}>
 								<ActionButton
