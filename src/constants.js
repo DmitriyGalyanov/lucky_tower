@@ -12,7 +12,7 @@ export const initialBalance = 10000;
 export const sadBalance = 1000;
 export const initialBet = 200;
 
-export const multipliersArray = [
+export const multipliersArray = [ 0, //
 	1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3,
 ];
 
@@ -20,7 +20,7 @@ export const multipliersArray = [
 export const playFieldWidth = windowWidth * 0.5;
 
 export const playTilesInRowAmount = 3;
-export const playRowsAmount = multipliersArray.length;
+export const playRowsAmount = multipliersArray.length - 1;
 export const playTileWidth = playFieldWidth / playTilesInRowAmount;
 export const playTileHeight = playTileWidth;
 export const playTileBGColor = 'rgba(0, 0, 0, 0.4)';
@@ -39,9 +39,9 @@ export const betButtonsAmount = betButtonsMultipliers.length;
 export const betButtonWidth = (betButtonsRowWidth - betButtonsGap * (betButtonsAmount - 1)) / betButtonsAmount;
 export const betButtonHeight = betButtonWidth * 0.6;
 
-//play button
-export const playButtonWidth = betButtonsRowWidth * 0.9;
-export const playButtonHeight = playButtonWidth * 0.2;
+//action buttons
+export const actionButtonWidth = betButtonsRowWidth * 0.9;
+export const actionButtonHeight = actionButtonWidth * 0.2;
 
 //
 export const mainButtonsColor = 'rgba(255, 255, 255, 0.8)';

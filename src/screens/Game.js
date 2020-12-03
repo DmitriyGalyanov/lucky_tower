@@ -14,7 +14,7 @@ import {
 	PlayField,
 	BetIndicator,
 	BetButtonsRow,
-	PlayButton,
+	ActionButton,
 } from '../components';
 
 import {useDispatch, useSelector} from 'react-redux';
@@ -117,6 +117,14 @@ export default function Game() {
 		checkIfWin();
 	}, [luckyHits]);
 
+	const handleActionButtonPress = () => {
+		if (!luckyHits) {
+			createField();
+		} else {
+			console.log(bet * multiplier)
+		}
+	}
+
 
 	return (
 		<ImageBackground
@@ -155,7 +163,7 @@ export default function Game() {
 								Баланс: {balance}
 							</Text>
 							<Text style={styles.multiplierIndicator} >
-								Множ: {multiplier}
+								Множ.: {multiplier}
 							</Text>
 						</View>
 					</View>
@@ -170,8 +178,11 @@ export default function Game() {
 						<View style={styles.betButtonRowWrap}>
 							<BetButtonsRow />
 						</View>
-						<View style={styles.playButtonWrap}>
-							<PlayButton onPress={createField} />
+							<View style={styles.actionButtonWrap}>
+								<ActionButton
+									title={luckyHits ? 'Забрать приз' : 'Начать'}
+									onPress={handleActionButtonPress}
+								/>
 						</View>
 					</View>
 				</ScrollView>
@@ -237,7 +248,7 @@ const styles = StyleSheet.create({
 		marginTop: 14,
 	},
 
-	playButtonWrap: {
+	actionButtonWrap: {
 		marginVertical: 14,
 	},
 });

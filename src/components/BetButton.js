@@ -36,7 +36,7 @@ export default function BetButton({width, height, multiplier, onPress}) {
 						fontSize: secondaryTextFontSize,
 					}}
 				>
-					{multiplier}
+					x{multiplier}
 				</Text>
 			</ImageBackground>
 		</TouchableOpacity>

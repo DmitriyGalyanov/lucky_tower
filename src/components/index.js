@@ -3,7 +3,7 @@ import PlayTile from './PlayTile';
 import PlayField from './PlayField';
 import BetIndicator from './BetIndicator';
 import BetButtonsRow from './BetButtonsRow';
-import PlayButton from './PlayButton';
+import ActionButton from './ActionButton';
 
 export {
 	HidingButton,
@@ -11,5 +11,5 @@ export {
 	PlayField,
 	BetIndicator,
 	BetButtonsRow,
-	PlayButton,
+	ActionButton,
 };
