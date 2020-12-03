@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import {View} from 'react-native';
 import BetButton from './BetButton';
@@ -14,7 +15,14 @@ import {
 } from '../constants';
 
 
-export default function BetButtonsRow() {
+BetButtonsRow.propTypes = {
+	disabled: PropTypes.bool,
+};
+/**
+ * Creates a BetButtons row
+ * @param {{disabled: ?boolean}} props
+ */
+export default function BetButtonsRow({disabled}) {
 	const dispatch = useDispatch();
 
 	return (
@@ -32,6 +40,7 @@ export default function BetButtonsRow() {
 						height={betButtonHeight}
 						multiplier={multiplier}
 						onPress={() => dispatch(multiplyBet(multiplier))}
+						disabled={disabled}
 					/>
 				)
 			})}
