@@ -31,10 +31,11 @@ export default function PlayField({tilesDataArray, triggerFail}) {
 	const createTiles = () => {
 		if (tilesDataArray?.length) {
 			return tilesDataArray.map((tile, index) => {
-				const {width, height, hides} = tile;
+				const {rowNumber, width, height, hides} = tile;
 
 				return (
 					<PlayTile key={index}
+						rowNumber={rowNumber}
 						width={width}
 						height={height}
 						hides={hides} // 'loss' || 'prize'

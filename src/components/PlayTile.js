@@ -11,6 +11,7 @@ import images from 'images';
 
 
 PlayTile.propTypes = {
+	rowNumber: PropTypes.number.isRequired,
 	width: PropTypes.number.isRequired,
 	height: PropTypes.number.isRequired,
 	hides: PropTypes.string.isRequired,
@@ -18,19 +19,20 @@ PlayTile.propTypes = {
 };
 /**
  * Creates a PlayTile
- * @param {{width: number, height: number, hides: string, triggerFail: Function}} props
+ * @param {{rowNumber: number, width: number, height: number, hides: string, triggerFail: Function}} props
  * Can hide loss or prize
  */
-export default function PlayTile({width, height, hides, triggerFail}) {
+export default function PlayTile({rowNumber, width, height, hides, triggerFail}) {
 	const dispatch = useDispatch();
 
-	const [showHiddenImage, setShowHiddenImage] = useState(false);
+	const [showHiddenImage, setShowHiddenImage] = useState(true);
 	//will depend on init image Animated value
 	const hiddenImage = hides === 'prize'
 		? images.prizeItem
 		: images.lossItem;
 
 	const handlePress = () => {
+		console.log(rowNumber)
 		setShowHiddenImage(true);
 		if (hides === 'prize') {
 			dispatch(increaseLuckyHits());
@@ -42,7 +44,7 @@ export default function PlayTile({width, height, hides, triggerFail}) {
 	return (
 		<TouchableOpacity
 			onPress={handlePress}
-			disabled={showHiddenImage}
+			// disabled={showHiddenImage}
 		>
 			<View
 				style={{

@@ -11,11 +11,10 @@ export const getRandomIntInclusive = (min, max) => {
 
 
 import {
-	playTilesAmount,
-	winningItemProbability,
-	maxLossItemsAmount,
 	playTileWidth,
 	playTileHeight,
+	playTilesInRowAmount,
+	playRowsAmount,
 } from './constants';
 
 /**
@@ -23,20 +22,24 @@ import {
  */
 export const createTilesData = () => {
 	let tilesDataArray = [];
-	let lossItemsAmount = 0;
-	for(let i = 0; i < playTilesAmount; i++) {
-		const hides = getRandomIntInclusive(1, 100) > winningItemProbability
-			|| lossItemsAmount >= maxLossItemsAmount
-				? 'prize'
-				: 'loss';
-		if (hides === 'loss') lossItemsAmount++;
-		let tileData = {
+	for(let i = 0; i < playRowsAmount; i++) {
+		const lossItemPosition = getRandomIntInclusive(0, 2);
+
+		for(let z = 0; z < playTilesInRowAmount; z++) {
+			const hides = z === lossItemPosition
+				? 'loss'
+				: 'prize';
+
+			let tileData = {
+				rowNumber: i,
 				width: playTileWidth,
 				height: playTileHeight,
 				hides: hides, // 'loss' || 'prize'
-		};
+			};
 
-		tilesDataArray.push(tileData);
+			tilesDataArray.push(tileData);
+		}
 	}
-	return(tilesDataArray);
+
+	return(tilesDataArray.reverse());
 };
