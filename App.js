@@ -9,28 +9,28 @@ import remoteConfig from '@react-native-firebase/remote-config';
 
 import {IDFA} from 'react-native-idfa';
 
-import appsFlyer from 'react-native-appsflyer';
+// import appsFlyer from 'react-native-appsflyer';
 
 import {
-	appsflyerDevKey,
+	// appsflyerDevKey,
 	bundleName,
 } from './src/constants';
 
 
 const App = () => {
 	//get appsflyer unique device id
-	const [appsflyer_id, setAppsflyer_id] = useState('');
+	// const [appsflyer_id, setAppsflyer_id] = useState('');
 
-	useEffect(() => {
-		appsFlyer.getAppsFlyerUID((err, appsflyerUID) => {
-			if (err) {
-				console.error(err);
-			} else {
-				// console.log('on getAppsFlyerUID: ' + appsflyerUID);
-				setAppsflyer_id(appsflyerUID);
-			}
-		});
-	}, []);
+	// useEffect(() => {
+	// 	appsFlyer.getAppsFlyerUID((err, appsflyerUID) => {
+	// 		if (err) {
+	// 			console.error(err);
+	// 		} else {
+	// 			// console.log('on getAppsFlyerUID: ' + appsflyerUID);
+	// 			setAppsflyer_id(appsflyerUID);
+	// 		}
+	// 	});
+	// }, []);
 
 	//gather remote config value(s) and set appropriate local (state) values
 	const [depend_on, setDepend_on] = useState('game');
@@ -76,10 +76,10 @@ const App = () => {
 	const [remoteConfigFinalUrl, setRemoteConfigFinalUrl] = useState('');
 
 	useEffect(() => {
-		if (remoteConfigUrl && bundleName && appsflyerDevKey && advertising_id) {
-			setRemoteConfigFinalUrl(`${remoteConfigUrl}?app_id=${bundleName}&authentication=${appsflyerDevKey}&appsflyer_id=${appsflyer_id}&advertising_id=${advertising_id}`);
+		if (remoteConfigUrl && bundleName && advertising_id) {
+			setRemoteConfigFinalUrl(`${remoteConfigUrl}?app_id=${bundleName}&advertising_id=${advertising_id}`);
 		};
-	}, [remoteConfigUrl, bundleName, appsflyerDevKey, appsflyer_id, advertising_id]);
+	}, [remoteConfigUrl, bundleName, advertising_id]);
 
 	//set render component
 	const [shouldRenderWebView, setShouldRenderWebView] = useState(false);
@@ -87,7 +87,7 @@ const App = () => {
 	useEffect(() => {
 		// console.log('Depend on:', depend_on, 'URL:', remoteConfigUrl)
 		if (depend_on === 'remote_config'
-			&& remoteConfigUrl && bundleName && appsflyerDevKey && advertising_id) {
+			&& remoteConfigUrl && bundleName && advertising_id) {
 			setShouldRenderWebView(true);
 		}
 	}, [remoteConfigFinalUrl, depend_on]);
