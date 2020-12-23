@@ -17,6 +17,7 @@
     "react": "16.13.1",
     "react-native": "0.63.4",
     "react-native-appsflyer": "^6.1.10",
+    "react-native-fbsdk": "^3.0.0",
     "react-native-idfa": "^4.1.0",
     "react-native-webview": "^11.0.0",
     "react-redux": "^7.2.2"
