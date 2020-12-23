@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.lucky_tower">
+  package="com.lotof.wolfs.fire">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

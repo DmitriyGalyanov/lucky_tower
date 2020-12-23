@@ -61,4 +61,4 @@ export const mainOverlaysColor = 'rgba(0, 0, 0, 0.9)';
 
 // not game-logics related
 export const appsflyerDevKey = 'tzTMezPNAAJ2jKPjNJezui';
-export const bundleName = 'com.lucky_tower';
+export const bundleName = 'com.lotof.wolfs.fire';
